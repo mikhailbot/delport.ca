@@ -25,7 +25,8 @@ config :delport_ca, DelportCaWeb.Endpoint,
   secret_key_base: "1pbm9C+raNzfs9gmUbsNHVh++L6y+Qp4eFN6vGafr2OmUgEmr1ViWSUYr/6Dl931",
   watchers: [
     # Start the esbuild watcher by calling Esbuild.install_and_run(:default, args)
-    esbuild: {Esbuild, :install_and_run, [:default, ~w(--sourcemap=inline --watch)]}
+    esbuild: {Esbuild, :install_and_run, [:default, ~w(--sourcemap=inline --watch)]},
+    tailwind: {Tailwind, :install_and_run, [:default, ~w(--watch)]}
   ]
 
 # ## SSL Support
