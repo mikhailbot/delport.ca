@@ -9,6 +9,19 @@ defmodule DelportCa.Content do
   alias DelportCa.Content.Post
 
   @doc """
+  Returns the ordered list of posts.
+
+  ## Examples
+
+      iex> list_posts(:title)
+      [%Post{}, ...]
+
+  """
+  def ordered_posts(constraint \\ [desc: :date]) do
+    Post |> order_by(^constraint) |> Repo.all()
+  end
+
+  @doc """
   Returns the list of posts.
 
   ## Examples

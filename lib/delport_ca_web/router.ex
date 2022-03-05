@@ -21,12 +21,8 @@ defmodule DelportCaWeb.Router do
     pipe_through :browser
 
     get "/", PageController, :index
+    get "/writing", PostController, :index
   end
-
-  # Other scopes may use custom stacks.
-  # scope "/api", DelportCaWeb do
-  #   pipe_through :api
-  # end
 
   # Enables LiveDashboard only for development
   #
