@@ -10,7 +10,7 @@ defmodule DelportCaWeb.PostControllerTest do
       conn = get(conn, "/writing")
 
       assert html_response(conn, 200) =~ post.title
-      assert html_response(conn, 200) =~ Date.to_string(post.date)
+      assert html_response(conn, 200) =~ Date.to_string(post.date) |> String.replace("-", ".")
     end
   end
 end
