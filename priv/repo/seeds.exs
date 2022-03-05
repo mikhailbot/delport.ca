@@ -9,10 +9,10 @@ alias DelportCa.Content
     confirmed_at: DateTime.now!("Etc/UTC")
   })
 
-for i <- 0..10 do
+for _ <- 0..20 do
   Repo.insert!(%Content.Post{
-    title: Faker.StarWars.quote(),
+    title: Faker.StarWars.quote() |> String.slice(0..75),
     body: Faker.Lorem.paragraphs(5) |> Enum.join(" "),
-    date: Faker.Date.backward(1000)
+    date: Faker.Date.backward(2000)
   })
 end

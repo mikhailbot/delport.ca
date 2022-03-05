@@ -5,10 +5,10 @@
 <section>
     <%= for post <- @posts do %>
         <p class="pb-2 sm:pb-0 sm:flex sm:flex-nowrap items-center">
-            <span class="block sm:inline pr-4 font-mono text-slate-500 text-sm tracking-tighter">
+            <span class="block sm:inline pr-4 font-mono text-slate-500 text-sm tracking-tighter leading-none">
                 <%= formatted_date(post.date) %>
             </span>
-            <a class="border-b-2 border-transparent hover:border-b-2 hover:border-slate-700 duration-300 truncate" href="#" >
+            <a class="block border-b-2 border-transparent hover:border-b-2 hover:border-slate-700 duration-300 truncate" href="#" >
                 <%= post.title %>
             </a>
         </p>
