@@ -29,7 +29,7 @@ defmodule DelportCa.Content.Post do
     end
   end
 
-  def create_valid_slug(slug) do
+  defp create_valid_slug(slug) do
     slug |> String.downcase() |> String.replace(~r([^a-z-]), "") |> String.replace(~r(-{2,}), "-")
   end
 end
