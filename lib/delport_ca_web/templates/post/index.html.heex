@@ -1,0 +1,14 @@
+<h2 class="text-3xl font-bold mb-2">
+    Writing
+</h2>
+
+<section>
+    <%= for post <- @posts do %>
+        <p class="pb-2 sm:pb-0 sm:flex sm:flex-nowrap items-center">
+            <span class="block sm:inline pr-4 font-mono text-slate-500 text-sm tracking-tighter leading-none">
+                <%= formatted_date(post.date) %>
+            </span>
+            <%= link(post.title, to: "/#{post.date.year}/#{post.slug}", class: "block border-b-2 border-transparent hover:border-b-2 hover:border-slate-700 duration-300 truncate") %>
+        </p>
+    <% end %>
+</section>

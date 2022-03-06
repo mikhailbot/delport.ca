@@ -1,11 +1,22 @@
-# Script for populating the database. You can run it as:
-#
-#     mix run priv/repo/seeds.exs
-#
-# Inside the script, you can read and write to any of your
-# repositories directly:
-#
-#     DelportCa.Repo.insert!(%DelportCa.SomeSchema{})
-#
-# We recommend using the bang functions (`insert!`, `update!`
-# and so on) as they will fail if something goes wrong.
+alias DelportCa.Repo
+alias DelportCa.Accounts
+alias DelportCa.Content
+
+{:ok, _} =
+  Accounts.register_user(%{
+    email: Faker.Internet.email(),
+    password: "secretpassword",
+    confirmed_at: DateTime.now!("Etc/UTC")
+  })
+
+for _ <- 0..20 do
+  title = Faker.StarWars.quote() |> String.slice(0..75)
+  slug = title |> String.downcase() |> String.replace(" ", "-")
+
+  Content.create_post(%{
+    title: title,
+    body: Faker.Lorem.paragraphs(5) |> Enum.join(" "),
+    date: Faker.Date.backward(2000),
+    slug: slug
+  })
+end

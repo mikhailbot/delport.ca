@@ -21,12 +21,9 @@ defmodule DelportCaWeb.Router do
     pipe_through :browser
 
     get "/", PageController, :index
+    get "/writing", PostController, :index
+    get "/:year/:slug", PostController, :show
   end
-
-  # Other scopes may use custom stacks.
-  # scope "/api", DelportCaWeb do
-  #   pipe_through :api
-  # end
 
   # Enables LiveDashboard only for development
   #
@@ -62,29 +59,29 @@ defmodule DelportCaWeb.Router do
   scope "/", DelportCaWeb do
     pipe_through [:browser, :redirect_if_user_is_authenticated]
 
-    get "/users/log_in", UserSessionController, :new
-    post "/users/log_in", UserSessionController, :create
-    get "/users/reset_password", UserResetPasswordController, :new
-    post "/users/reset_password", UserResetPasswordController, :create
-    get "/users/reset_password/:token", UserResetPasswordController, :edit
-    put "/users/reset_password/:token", UserResetPasswordController, :update
+    get "/admin/users/log_in", UserSessionController, :new
+    post "/admin/users/log_in", UserSessionController, :create
+    get "/admin/users/reset_password", UserResetPasswordController, :new
+    post "/admin/users/reset_password", UserResetPasswordController, :create
+    get "/admin/users/reset_password/:token", UserResetPasswordController, :edit
+    put "/admin/users/reset_password/:token", UserResetPasswordController, :update
   end
 
   scope "/", DelportCaWeb do
     pipe_through [:browser, :require_authenticated_user]
 
-    get "/users/settings", UserSettingsController, :edit
-    put "/users/settings", UserSettingsController, :update
-    get "/users/settings/confirm_email/:token", UserSettingsController, :confirm_email
+    get "/admin/users/settings", UserSettingsController, :edit
+    put "/admin/users/settings", UserSettingsController, :update
+    get "/admin/users/settings/confirm_email/:token", UserSettingsController, :confirm_email
   end
 
   scope "/", DelportCaWeb do
     pipe_through [:browser]
 
-    delete "/users/log_out", UserSessionController, :delete
-    get "/users/confirm", UserConfirmationController, :new
-    post "/users/confirm", UserConfirmationController, :create
-    get "/users/confirm/:token", UserConfirmationController, :edit
-    post "/users/confirm/:token", UserConfirmationController, :update
+    delete "/admin/users/log_out", UserSessionController, :delete
+    get "/admin/users/confirm", UserConfirmationController, :new
+    post "/admin/users/confirm", UserConfirmationController, :create
+    get "/admin/users/confirm/:token", UserConfirmationController, :edit
+    post "/admin/users/confirm/:token", UserConfirmationController, :update
   end
 end
