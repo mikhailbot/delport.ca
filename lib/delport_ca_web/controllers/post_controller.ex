@@ -7,4 +7,10 @@ defmodule DelportCaWeb.PostController do
 
     render(conn, "index.html", posts: posts)
   end
+
+  def show(conn, %{"slug" => slug} = _params) do
+    post = Content.get_post_by_slug!(slug)
+
+    render(conn, "show.html", post: post)
+  end
 end

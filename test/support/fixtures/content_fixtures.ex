@@ -13,7 +13,8 @@ defmodule DelportCa.ContentFixtures do
       |> Enum.into(%{
         body: "some body",
         date: ~D[2022-03-02],
-        title: "some title"
+        title: "some title",
+        slug: "some-title"
       })
       |> DelportCa.Content.create_post()
 

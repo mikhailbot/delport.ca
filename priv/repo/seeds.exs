@@ -10,9 +10,13 @@ alias DelportCa.Content
   })
 
 for _ <- 0..20 do
-  Repo.insert!(%Content.Post{
-    title: Faker.StarWars.quote() |> String.slice(0..75),
+  title = Faker.StarWars.quote() |> String.slice(0..75)
+  slug = title |> String.downcase() |> String.replace(" ", "-")
+
+  Content.create_post(%{
+    title: title,
     body: Faker.Lorem.paragraphs(5) |> Enum.join(" "),
-    date: Faker.Date.backward(2000)
+    date: Faker.Date.backward(2000),
+    slug: slug
   })
 end

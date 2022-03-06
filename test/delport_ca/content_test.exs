@@ -8,7 +8,7 @@ defmodule DelportCa.ContentTest do
 
     import DelportCa.ContentFixtures
 
-    @invalid_attrs %{body: nil, date: nil, title: nil}
+    @invalid_attrs %{body: nil, date: nil, title: nil, slug: nil}
 
     test "list_posts/0 returns all posts" do
       post = post_fixture()
@@ -21,12 +21,18 @@ defmodule DelportCa.ContentTest do
     end
 
     test "create_post/1 with valid data creates a post" do
-      valid_attrs = %{body: "some body", date: ~D[2022-03-02], title: "some title"}
+      valid_attrs = %{
+        body: "some body",
+        date: ~D[2022-03-02],
+        title: "some title",
+        slug: "some-title"
+      }
 
       assert {:ok, %Post{} = post} = Content.create_post(valid_attrs)
       assert post.body == "some body"
       assert post.date == ~D[2022-03-02]
       assert post.title == "some title"
+      assert post.slug == "some-title"
     end
 
     test "create_post/1 with invalid data returns error changeset" do
@@ -63,6 +69,26 @@ defmodule DelportCa.ContentTest do
     test "change_post/1 returns a post changeset" do
       post = post_fixture()
       assert %Ecto.Changeset{} = Content.change_post(post)
+    end
+
+    test "get_post_by_slug!/1 returns the post with correct slug" do
+      post = post_fixture()
+      assert Content.get_post_by_slug!(post.slug) == post
+    end
+
+    test "create_post/1 with invalid slug creates post with correct slug" do
+      valid_attrs_invalid_slug = %{
+        body: "some body",
+        date: ~D[2022-03-02],
+        title: "some title",
+        slug: "some-&title-#-slug's-?wrong"
+      }
+
+      assert {:ok, %Post{} = post} = Content.create_post(valid_attrs_invalid_slug)
+      assert post.body == "some body"
+      assert post.date == ~D[2022-03-02]
+      assert post.title == "some title"
+      assert post.slug == "some-title-slugs-wrong"
     end
   end
 end

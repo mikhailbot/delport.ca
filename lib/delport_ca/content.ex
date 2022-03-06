@@ -51,6 +51,22 @@ defmodule DelportCa.Content do
   def get_post!(id), do: Repo.get!(Post, id)
 
   @doc """
+  Gets a single post by its slug.
+
+  Raises `Ecto.NoResultsError` if the Post does not exist.
+
+  ## Examples
+
+      iex> get_post_by_slug!("some-slug")
+      %Post{}
+
+      iex> get_post_by_slug!("no-slug")
+      ** (Ecto.NoResultsError)
+
+  """
+  def get_post_by_slug!(slug), do: Repo.get_by!(Post, slug: slug)
+
+  @doc """
   Creates a post.
 
   ## Examples

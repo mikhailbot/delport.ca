@@ -6,6 +6,7 @@ defmodule DelportCa.Repo.Migrations.CreatePosts do
       add :title, :string
       add :body, :text
       add :date, :date
+      add :slug, :string
 
       timestamps()
     end
