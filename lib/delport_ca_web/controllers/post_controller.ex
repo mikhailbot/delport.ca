@@ -13,4 +13,19 @@ defmodule DelportCaWeb.PostController do
 
     render(conn, "show.html", post: post)
   end
+
+  def new(conn, _params) do
+    render(conn, "new.html")
+  end
+
+  def create(conn, params) do
+    case Content.create_post(params) do
+      {:ok, post} ->
+        conn
+        |> redirect(to: Routes.post_path(conn, :show, post.date.year, post.slug))
+
+      {:error, changeset} ->
+        render(conn, "edit.html", changeset: changeset)
+    end
+  end
 end
